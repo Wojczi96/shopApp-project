@@ -18,8 +18,21 @@ const Product = props => {
     } else {
       return props.basePrice
     }
-
   }
+  const totalPrice = getPrice();
+  const summaryOrder = (event, title, price, color, size) => {
+    event.preventDefault();
+    console.log(
+      `Summary:
+      =========
+      title: ${title}
+      price: ${price}
+      color: ${color}
+      size: ${size}
+      `
+    )
+  }
+
 
   return (
     <article className={styles.product}>
@@ -32,7 +45,7 @@ const Product = props => {
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price: {getPrice()}$</span>
+          <span className={styles.price}>Price: {totalPrice}$</span>
         </header>
         <form>
           <div className={styles.sizes}>
@@ -49,7 +62,7 @@ const Product = props => {
                 '')}></button></li>)}
             </ul>
           </div>
-          <Button className={styles.button}>
+          <Button className={styles.button} onClick={ (e) => summaryOrder(e, props.title, totalPrice, currentColor, currentSize.name) }>
             <span className="fa fa-shopping-cart" />
           </Button>
         </form>
